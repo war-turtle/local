@@ -1,0 +1,14 @@
+[
+  {
+    "package": "vim",
+    "target": "/path/to/vim/target"
+  },
+  {
+    "package": "bash",
+    "target": "/path/to/bash/target"
+  },
+  {
+    "package": "git",
+    "target": "/path/to/git/target"
+  }
+]
