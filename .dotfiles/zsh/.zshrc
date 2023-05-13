@@ -104,12 +104,11 @@ source $ZSH/oh-my-zsh.sh
 # export JAVA_HOME=`/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home/bin`
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 export NODE_OPTIONS=--max_old_space_size=4096
-export PATH="/Users/kartikyadav/Library/Python/3.8/bin/:$JAVA_HOME/bin:$PATH:/Users/kartikyadav/App/server/bin"
+export PATH="$JAVA_HOME/bin:$PATH"
 export EDITOR=/usr/bin/vim
 
 alias kdev="kubectl --context=k8s0 -n dev"
 alias kprod="kubectl --context=sin0 -n prod"
+alias ll="ls -la"

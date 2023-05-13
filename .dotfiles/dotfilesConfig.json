@@ -1,14 +1,18 @@
 [
   {
     "package": "vim",
-    "target": "/path/to/vim/target"
+    "target": "~"
   },
   {
-    "package": "bash",
-    "target": "/path/to/bash/target"
+    "package": "config",
+    "target": "~"
   },
   {
-    "package": "git",
-    "target": "/path/to/git/target"
+    "package": "emacs",
+    "target": "~"
+  },
+  {
+    "package": "zsh",
+    "target": "~"
   }
 ]

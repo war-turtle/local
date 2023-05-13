@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const { spawnSync } = require('child_process');
 
 const CONFIG_FILE = 'dotfilesConfig.json';
@@ -16,8 +17,10 @@ if (spawnSync('which', ['stow']).status !== 0) {
 for (const item of config) {
   const { package: packageName, target: targetDirectory } = item;
 
+  const resolvedTargetDirectory = targetDirectory.replace('~', os.homedir());
+
   // Run 'stow' command with the appropriate arguments
-  const stowProcess = spawnSync('stow', ['--target=' + targetDirectory, packageName], { stdio: 'inherit' });
+  const stowProcess = spawnSync('stow', ['--target=' + resolvedTargetDirectory, packageName], { stdio: 'inherit' });
 
   // Check the exit code of the 'stow' process
   if (stowProcess.status !== 0) {

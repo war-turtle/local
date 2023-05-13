@@ -1,0 +1,6 @@
+[submodule ".dotfiles/config/.config/alacritty/theme"]
+	path = .dotfiles/config/.config/alacritty/theme
+	url = git@github.com:alacritty/alacritty-theme.git
+[submodule ".dotfiles/config/.config/alacritty/themes"]
+	path = .dotfiles/config/.config/alacritty/themes
+	url = git@github.com:alacritty/alacritty-theme.git
