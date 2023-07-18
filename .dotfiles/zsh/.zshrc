@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/kartik.yadav/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="smt"
+ZSH_THEME="random"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,12 +103,16 @@ source $ZSH/oh-my-zsh.sh
 # export JAVA_HOME=`/usr/libexec/java_home`
 # export JAVA_HOME=`/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home/bin`
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
-export CPPFLAGS="-I/usr/local/opt/openjdk/include"
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
 export NODE_OPTIONS=--max_old_space_size=4096
-export PATH="$JAVA_HOME/bin:$PATH"
 export EDITOR=/usr/bin/vim
 
 alias kdev="kubectl --context=k8s0 -n dev"
 alias kprod="kubectl --context=sin0 -n prod"
 alias ll="ls -la"
+# export PATH="/opt/homebrew/opt/openjdk@11/bin:$JAVA_HOME/bin:$PATH"
+export PATH="$JAVA_HOME/bin:$HOME/.emacs.d/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion

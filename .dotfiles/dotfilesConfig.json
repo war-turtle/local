@@ -14,5 +14,9 @@
   {
     "package": "zsh",
     "target": "~"
+  },
+  {
+    "package": "hammerspoon",
+    "target": "~"
   }
 ]

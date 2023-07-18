@@ -78,7 +78,7 @@
 
 ;; Setting tab width
 ;; (setq tab-width 2)
-;; (setq-default tab-width 2)
+(setq-default tab-width 2)
 
 ;; Configuring org
 
@@ -99,6 +99,7 @@
         org-log-done 'time
   )
   (add-to-list 'org-emphasis-alist '("*" (:foreground "green" :background "black")))
+  (add-to-list 'org-emphasis-alist '("=" (:foreground "red" :background "black")))
   ;; configuring org-refile
   (setq org-refile-allow-creating-parent-nodes t)
   (setq org-refile-use-outline-path 'file)
@@ -137,8 +138,8 @@
    (when (memq window-system '(mac ns x))
      (exec-path-from-shell-initialize)))
 
-(doom-require 'lsp-java)
-(add-hook 'java-mode-hook #'lsp)
+;; (doom-require 'lsp-java)
+;; (add-hook 'java-mode-hook #'lsp)
 
 ;; Package used to store images in org file
 ;; (doom-require 'org-download)
@@ -160,17 +161,21 @@
 (defun paste-from-clipboard ()
   (interactive)
   (setq select-enable-clipboard t)
-  (yank)
+  (clipboard-yank)
   (setq select-enable-clipboard nil))
 (defun copy-to-clipboard()
   (interactive)
   (setq select-enable-clipboard t)
-  (kill-ring-save (region-beginning) (region-end))
+  (shell-command-on-region
+   (region-beginning) (region-end) "pbcopy")
+  ;; (kill-ring-save (region-beginning) (region-end))
   (setq select-enable-clipboard nil))
 (defun cut-to-clipboard()
   (interactive)
   (setq select-enable-clipboard t)
-  (kill-ring-save (region-beginning) (region-end))
+  ;; (kill-ring-save (region-beginning) (region-end))
+  (shell-command-on-region
+   (region-beginning) (region-end) "pbcopy")
   (delete-region (region-beginning) (region-end))
   (setq select-enable-clipboard nil))
 ;; binding super+c to copy
