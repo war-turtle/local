@@ -54,6 +54,8 @@
 (package! exec-path-from-shell)
 ;; (package! lsp-java)
 (package! org-download)
+;; installing mermaid js support for orgmode
+(package! ob-mermaid)
 
 ;; https://emacs.stackexchange.com/questions/75827/doom-emacs-error-running-hook-global-git-commit-mode-because-void-variable
 (package! transient

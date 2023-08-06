@@ -81,8 +81,13 @@
 (setq-default tab-width 2)
 
 ;; Configuring org
-
 (setq notesDir "~/App/notes/notes")
+
+;; Providing path to mmdc (mermaid js cli tool) to ob-mermaid for orgmode support
+(setq ob-mermaid-cli-path "~/.nvm/versions/node/v14.21.3/bin/mmdc")
+(org-babel-do-load-languages
+    'org-babel-load-languages
+    '((mermaid . t)))
 
 (after! org
   (setq org-directory notesDir
