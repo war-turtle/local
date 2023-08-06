@@ -1,0 +1,2253 @@
+[oh-my-zsh] Random theme 'macovsky' loaded
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v8.17.0 --silent` to unset it.
+~/App/scripts  $ node hypothesis.js
+/Users/kartik.yadav/App/scripts/node_modules/axios/index.js:1
+(function (exports, require, module, __filename, __dirname) { import axios from './lib/axios.js';
+                                                              ^^^^^^
+
+SyntaxError: Unexpected token import
+    at createScript (vm.js:80:10)
+~/App/scripts  $ node --version                  
+v16.20.0
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mo stretchy="false">]</mo></math>$a[]$  looks like this: 
+it is a recursive function with the parameters   a[]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mo stretchy="false">]</mo></math>$a[]$  (the input array),   v<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math>$v$  (the index of the 
+current vertex), and the boundaries   tl<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mi>l</mi></math>$tl$  and   tr<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mi>r</mi></math>$tr$  of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex<math xmlns="http://www.w3.org/1998/Math/MathML"><mtext>Vertex</mtext></math>$\text{Vertex}$  struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>$i$  is stored at index   2i<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>i</mi></math>$2i$ , and the right one at index   2i+1<math xmlns
+="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>i</mi><mo>+</mo><mn>1</mn></math>$2i + 1$ . 
+Equivalently, the parent of a vertex at index   i<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>$i$  is stored at   i/2<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn></math>$i/2$  (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></math>$a[i]$  in its
+ segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers   l<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>l</mi></math>$l$  and   r<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math>$r$ , and we have to compute the sum of the segment   a[l…r]<math xmlns="http://www.w3.org/199
+8/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$  in   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo 
+stretchy="false">)</mo></math>$O(\log n)$  time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>t</mi><mi>l</mi><mo>…</mo><mi>t</mi><mi>r</mi><mo stretchy="false">]</mo></math>$a[tl \dots tr]$ .
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo stretchy="false">)</mo></math>$O(\log n)$ , because when going down from the root to th
+e leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever   n<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>$n$  is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment   a[0…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots n-1]$ , and each vertex (except leaf vertices) h
+as exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots n-1]$ 
+. 
+We then split the array into two halves   a[0…n/2−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots 
+n/2-1]$  and   a[n/2…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[n/2 \dots n-1]$  and compute the su
+m of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>$1$ .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$ , or finding the minimum element in a such 
+a range in   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo stretchy="false">)</mo></math>$O(\log n)$  time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo
+>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$  to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>4</mn><mi>n</mi></math>$4n$  vertices for working on an array of size   n<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>$n$ .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[]  looks like this: 
+it is a recursive function with the parameters   a[]  of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex  struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i . 
+Equivalently, the parent of a vertex at index   i  (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i]  in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers   l  time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr] .
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is   O(log⁡n) , because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever   n  is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment   a[0…n−1] , and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1] . 
+We then split the array into two halves   a[0…n/2−1]  and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1 .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r]  time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r]  to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mo stretchy="false">]</mo></math>$a[]$  looks like this: 
+it is a recursive function with the parameters   a[]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mo stretchy="false">]</mo></math>$a[]$  (the input array),   v<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math>$v$  (the index of the 
+current vertex), and the boundaries   tl<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mi>l</mi></math>$tl$  and   tr<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mi>r</mi></math>$tr$  of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex<math xmlns="http://www.w3.org/1998/Math/MathML"><mtext>Vertex</mtext></math>$\text{Vertex}$  struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>$i$  is stored at index   2i<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>i</mi></math>$2i$ , and the right one at index   2i+1<math xmlns
+="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>i</mi><mo>+</mo><mn>1</mn></math>$2i + 1$ . 
+Equivalently, the parent of a vertex at index   i<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>$i$  is stored at   i/2<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn></math>$i/2$  (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></math>$a[i]$  in its
+ segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers   l<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>l</mi></math>$l$  and   r<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math>$r$ , and we have to compute the sum of the segment   a[l…r]<math xmlns="http://www.w3.org/199
+8/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$  in   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo 
+stretchy="false">)</mo></math>$O(\log n)$  time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>t</mi><mi>l</mi><mo>…</mo><mi>t</mi><mi>r</mi><mo stretchy="false">]</mo></math>$a[tl \dots tr]$ .
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo stretchy="false">)</mo></math>$O(\log n)$ , because when going down from the root to th
+e leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever   n<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>$n$  is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment   a[0…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots n-1]$ , and each vertex (except leaf vertices) h
+as exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots n-1]$ 
+. 
+We then split the array into two halves   a[0…n/2−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots 
+n/2-1]$  and   a[n/2…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[n/2 \dots n-1]$  and compute the su
+m of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>$1$ .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$ , or finding the minimum element in a such 
+a range in   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo stretchy="false">)</mo></math>$O(\log n)$  time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo
+>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$  to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>4</mn><mi>n</mi></math>$4n$  vertices for working on an array of size   n<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>$n$ .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+/Users/kartik.yadav/App/scripts/hypothesis.js:39
+        const regex = /<math[^>]*>.*<\/math>|(\$[^$]*\$)/gU;
+                      ^
+
+SyntaxError: Invalid regular expression flags
+    at Object.compileFunction (node:vm:360:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1124:15)
+    at Module._compile (node:internal/modules/cjs/loader:1160:27)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1250:10)
+    at Module.load (node:internal/modules/cjs/loader:1074:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:909:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:22:47
+~/App/scripts  $ node hypothesis.js                                                                                                                                                                                                                                                           1 ↵
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[]  looks like this: 
+it is a recursive function with the parameters   a[]  (the input array),   v  (the index of the current vertex), and the boundaries   tl  and   tr  of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex  struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i  is stored at index   2i , and the right one at index   2i+1 . 
+Equivalently, the parent of a vertex at index   i  is stored at   i/2  (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i]  in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers   l  and   r , and we have to compute the sum of the segment   a[l…r]  in   O(log⁡n)  time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr] .
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is   O(log⁡n) , because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever   n  is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment   a[0…n−1] , and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1] . 
+We then split the array into two halves   a[0…n/2−1]  and   a[n/2…n−1]  and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1 .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r] , or finding the minimum element in a such a range in   O(log⁡n)  time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r]  to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n  vertices for working on an array of size   n .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[]$a[]$  looks like this: 
+it is a recursive function with the parameters   a[]$a[]$  (the input array),   v$v$  (the index of the current vertex), and the boundaries   tl$tl$  and   tr$tr$  of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex$\text{Vertex}$  struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i$i$  is stored at index   2i$2i$ , and the right one at index   2i+1$2i + 1$ . 
+Equivalently, the parent of a vertex at index   i$i$  is stored at   i/2$i/2$  (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i]$a[i]$  in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two chil
+dren).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers   l$l$  and   r$r$ , and we have to compute the sum of the segment   a[l…r]$a[l \dots r]$  in   O(log⁡n)$O(\log n)$  time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr]$a[tl \dots tr]$ .
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is   O(log⁡n)$O(\log n)$ , because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever   n$n$  is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment   a[0…n−1]$a[0 \dots n-1]$ , and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1]$a[0 \dots n-1]$ . 
+We then split the array into two halves   a[0…n/2−1]$a[0 \dots n/2-1]$  and   a[n/2…n−1]$a[n/2 \dots n-1]$  and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1$1$ .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r]$a[l \dots r]$ , or finding the minimum element in a such a range in   O(log⁡n)$O(\log n)$  time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r]$a[l \dots r]$  to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n$4n$  vertices for working on an array of size   n$n$ .
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js 
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[] looks like this: 
+it is a recursive function with the parameters   a[] (the input array),   v (the index of the current vertex), and the boundaries   tl and   tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i is stored at index   2i, and the right one at index   2i+1. 
+Equivalently, the parent of a vertex at index   i is stored at   i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers   l and   r, and we have to compute the sum of the segment   a[l…r] in   O(log⁡n) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is   O(log⁡n), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever   n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment   a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1]. 
+We then split the array into two halves   a[0…n/2−1] and   a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r], or finding the minimum element in a such a range in   O(log⁡n) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r] to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n vertices for working on an array of size   n.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(log⁡n) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is O(log⁡n), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(log⁡n) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is O(log⁡n), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0…n−1]. 
+We then split the array into two halves a[0…n/2−1] and a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements a[l…r], or finding the minimum element in a such a range in O(log⁡n) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l…r] to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+~/App/scripts  $ node hypothesis.js
+node:internal/modules/cjs/loader:1029
+  throw err;
+~/App/scripts  $ ll            
+~/App/scripts  $ node hypothesis.js 
+/Users/kartik.yadav/App/scripts/hypothesis.js:5
+const clipboardy = require('clipboardy');
+                   ^
+
+Error [ERR_REQUIRE_ESM]: require() of ES Module /Users/kartik.yadav/App/scripts/node_modules/clipboardy/index.js from /Users/kartik.yadav/App/scripts/hypothesis.js not supported.
+Instead change the require of index.js in /Users/kartik.yadav/App/scripts/hypothesis.js to a dynamic import() which is available in all CommonJS modules.
+    at Object.<anonymous> (/Users/kartik.yadav/App/scripts/hypothesis.js:5:20) {
+  code: 'ERR_REQUIRE_ESM'
+}
+~/App/scripts  $ node --version                                                                                                                                                                                                                                                               1 ↵
+v16.20.0
+~/App/scripts  $ node hypothesis.js
+/Users/kartik.yadav/App/scripts/hypothesis.js:5
+const clipboardy = require('clipboardy');
+                   ^
+
+Error [ERR_REQUIRE_ESM]: require() of ES Module /Users/kartik.yadav/App/scripts/node_modules/clipboardy/index.js from /Users/kartik.yadav/App/scripts/hypothesis.js not supported.
+Instead change the require of index.js in /Users/kartik.yadav/App/scripts/hypothesis.js to a dynamic import() which is available in all CommonJS modules.
+    at Object.<anonymous> (/Users/kartik.yadav/App/scripts/hypothesis.js:5:20) {
+  code: 'ERR_REQUIRE_ESM'
+}
+~/App/scripts  $ node hypothesis.js                                                                                                                                                                                                                                                           1 ↵
+(node:58136) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+(Use `node --trace-warnings ...` to show where the warning was created)
+/Users/kartik.yadav/App/scripts/hypothesis.js:2
+import axios from 'axios';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
+    at Object.compileFunction (node:vm:360:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1124:15)
+    at Module._compile (node:internal/modules/cjs/loader:1160:27)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1250:10)
+    at Module.load (node:internal/modules/cjs/loader:1074:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:909:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:22:47
+~/App/scripts  $ node hypothesis.js                                                                                                                                                                                                                                                           1 ↵
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0…n−1]. 
+We then split the array into two halves a[0…n/2−1] and a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements a[l…r], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l…r] to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0…n−1]. 
+We then split the array into two halves a[0…n/2−1] and a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements a[l…r], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l…r] to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $  node hypothesis.js 
+Error retrieving highlights: utf8 is not defined
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 6: Implementation
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 8: Update queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 11: Sum queries
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 16: Construction
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0…n−1]. 
+We then split the array into two halves a[0…n/2−1] and a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 21: Structure of the Segment Tree
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 22: This includes finding the sum of consecutive array elements a[l…r], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l…r] to any value, or adding a value to all element in the subsegment).
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+User: acct:handsaw_favorable@hypothes.is
+--------------------------------
+~/App/scripts  $        node
+~/App/scripts  $ node hypothesis.js                                                                                                                                                                                                                                                         130 ↵
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Error retrieving highlights: highlightText is not defined
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+As an input we receive two integers l and r, and we have to compute the sum of the segment a[l…r] in O(logn) time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+Let's assume that we are currently at the vertex that covers the segment a[tl…tr].
+There are three possible cases.
+Highlight 11: Sum queries
+Sum queries
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+the merge operation that merges two siblings in a segment tree.
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Highlight 16: Construction
+Construction
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+Highlight 19: the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+the root of this tree is the segment a[0…n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0…n−1]. 
+We then split the array into two halves a[0…n/2−1] and a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0…n−1]. 
+We then split the array into two halves a[0…n/2−1] and a[n/2…n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+Highlight 21: Structure of the Segment Tree
+Structure of the Segment Tree
+Highlight 22: This includes finding the sum of consecutive array elements a[l…r], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l…r] to any value, or adding a value to all element in the subsegment).
+This includes finding the sum of consecutive array elements a[l…r], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l…r] to any value, or adding a value to all element in the subsegment).
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[lr] in O(logn) time.
+As an input we receive two integers l and r, and we have to compute the sum of the segment a[lr] in O(logn) time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tltr].
+There are three possible cases.
+Let's assume that we are currently at the vertex that covers the segment a[tltr].
+There are three possible cases.
+Highlight 11: Sum queries
+Sum queries
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+the merge operation that merges two siblings in a segment tree.
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Highlight 16: Construction
+Construction
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+Highlight 19: the root of this tree is the segment a[0n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+the root of this tree is the segment a[0n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0n−1]. 
+We then split the array into two halves a[0n/2−1] and a[n/2n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0n−1]. 
+We then split the array into two halves a[0n/2−1] and a[n/2n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+Highlight 21: Structure of the Segment Tree
+Structure of the Segment Tree
+Highlight 22: This includes finding the sum of consecutive array elements a[lr], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[lr] to any value, or adding a value to all element in the subsegment).
+This includes finding the sum of consecutive array elements a[lr], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[lr] to any value, or adding a value to all element in the subsegment).
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[lr] in O(logn) time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tltr].
+There are three possible cases.
+Highlight 11: Sum queries
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Highlight 16: Construction
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+Highlight 19: the root of this tree is the segment a[0n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0n−1]. 
+We then split the array into two halves a[0n/2−1] and a[n/2n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+Highlight 21: Structure of the Segment Tree
+Highlight 22: This includes finding the sum of consecutive array elements a[lr], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[lr] to any value, or adding a value to all element in the subsegment).
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[lr] in O(logn) time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tltr].
+There are three possible cases.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a Vertex struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i+1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l...r] in O(logn) time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl...tr].
+There are three possible cases.
+Highlight 11: Sum queries
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Highlight 16: Construction
+Highlight 17: The height of the Segment Tree is O(logn), because when going down from the root to the leaves the size of the segments decreases approximately by half.
+Highlight 18: It is worth noting that whenever n is not a power of two, not all levels of the Segment Tree will be completely filled.
+Highlight 19: the root of this tree is the segment a[0...n−1], and each vertex (except leaf vertices) has exactly two child vertices.
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment a[0...n−1]. 
+We then split the array into two halves a[0...n/2−1] and a[n/2...n−1] and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size 1.
+Highlight 21: Structure of the Segment Tree
+Highlight 22: This includes finding the sum of consecutive array elements a[l...r], or finding the minimum element in a such a range in O(logn) time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements a[l...r] to any value, or adding a value to all element in the subsegment).
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires 4n vertices for working on an array of size n.
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array   a[]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mo stretchy="false">]</mo></math>$a[]$  looks like this: 
+it is a recursive function with the parameters   a[]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mo stretchy="false">]</mo></math>$a[]$  (the input array),   v<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math>$v$  (the index of the 
+current vertex), and the boundaries   tl<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mi>l</mi></math>$tl$  and   tr<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mi>r</mi></math>$tr$  of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a   Vertex<math xmlns="http://www.w3.org/1998/Math/MathML"><mtext>Vertex</mtext></math>$\text{Vertex}$  struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index   i<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>$i$  is stored at index   2i<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>i</mi></math>$2i$ , and the right one at index   2i+1<math xmlns
+="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>i</mi><mo>+</mo><mn>1</mn></math>$2i + 1$ . 
+Equivalently, the parent of a vertex at index   i<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>$i$  is stored at   i/2<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn></math>$i/2$  (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains   a[i]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></math>$a[i]$  in its
+ segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children).
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers   l<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>l</mi></math>$l$  and   r<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math>$r$ , and we have to compute the sum of the segment   a[l…r]<math xmlns="http://www.w3.org/199
+8/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$  in   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo 
+stretchy="false">)</mo></math>$O(\log n)$  time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment   a[tl…tr]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>t</mi><mi>l</mi><mo>…</mo><mi>t</mi><mi>r</mi><mo stretchy="false">]</mo></math>$a[tl \dots tr]$ .
+There are three possible cases.
+Highlight 11: Sum queries
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the merge function.
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+Highlight 15: Before constructing the segment tree, we need to decide:
+
+the value that gets stored at each node of the segment tree.
+Highlight 16: Construction
+Highlight 17: The height of the Segment Tree is   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo stretchy="false">)</mo></math>$O(\log n)$ , because when going down from the root to th
+e leaves the size of the segments decreases approximately by half.
+Highlight 18: It is worth noting that whenever   n<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>$n$  is not a power of two, not all levels of the Segment Tree will be completely filled.
+Highlight 19: the root of this tree is the segment   a[0…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots n-1]$ , and each vertex (except leaf vertices) h
+as exactly two child vertices.
+Highlight 20: We can take a divide-and-conquer approach when it comes to array segments. 
+We compute and store the sum of the elements of the whole array, i.e. the sum of the segment   a[0…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots n-1]$ 
+. 
+We then split the array into two halves   a[0…n/2−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo>…</mo><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[0 \dots 
+n/2-1]$  and   a[n/2…n−1]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>/</mo></mrow><mn>2</mn><mo>…</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></math>$a[n/2 \dots n-1]$  and compute the su
+m of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size   1<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>$1$ .
+Highlight 21: Structure of the Segment Tree
+Highlight 22: This includes finding the sum of consecutive array elements   a[l…r]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$ , or finding the minimum element in a such 
+a range in   O(log⁡n)<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>n</mi><mo stretchy="false">)</mo></math>$O(\log n)$  time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements   a[l…r]<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo stretchy="false">[</mo><mi>l</mi><mo
+>…</mo><mi>r</mi><mo stretchy="false">]</mo></math>$a[l \dots r]$  to any value, or adding a value to all element in the subsegment).
+Highlight 23: One important property of Segment Trees is that they require only a linear amount of memory.
+The standard Segment Tree requires   4n<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>4</mn><mi>n</mi></math>$4n$  vertices for working on an array of size   n<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>$n$ .
+Highlight 24: A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
+~/App/scripts  $ node hypothesis.js
+Extracted Highlights:
+Highlight 1: void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 2: int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+}
+Highlight 3: The procedure for constructing the Segment Tree from a given array a[] looks like this: 
+it is a recursive function with the parameters a[] (the input array), v (the index of the current vertex), and the boundaries tl and tr of the current segment.
+Highlight 4: void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+Highlight 5: The main consideration is how to store the Segment Tree.
+Of course we can define a \text{Vertex} struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient by using an implicit data structure: Only storing the sums in an array.
+(A similar method is used for binary heaps).
+The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
+With 1-indexing, conveniently the left child of a vertex at index i is stored at index 2i, and the right one at index 2i + 1. 
+Equivalently, the parent of a vertex at index i is stored at i/2 (integer division).
+Highlight 6: Implementation
+Highlight 7: It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains a[i] in its segment), and after that recomputes its sum value, 
+Highlight 8: Update queries
+Highlight 9: As an input we receive two integers l and r, and we have to compute the sum of the segment a[l \dots r] in O(\log n) time.
+Highlight 10: Let's assume that we are currently at the vertex that covers the segment a[tl \dots tr].
+There are three possible cases.
+Highlight 11: Sum queries
+Highlight 12: It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices.
+Highlight 13: Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can comput
+And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex.
+Highlight 14: the merge operation that merges two siblings in a segment tree.
+~/App/scripts  $ node hypothesis.js https://www.geeksforgeeks.org/treemap-in-java/
+Extracted Highlights:
+Highlight 1: Each node in the tree has: 3 Variables (K key=Key, V value=Value, boolean color=Color)3 References (Entry left = Left, Entry right = Right, Entry parent = Parent)
+Highlight 2: The class implements Map interfaces including NavigableMap, SortedMap, and extends AbstractMap class.
+Highlight 3: A TreeMap is implemented using a Red-Black tree, which is a type of self-balancing binary search tree. This provides efficient performance for common operations such as adding, 
+ retrieving elements, with an average time complexity of O(log n).
+Highlight 4: The TreeMap in Java is a concrete implementation of the java.util.SortedMap interface. It provides an ordered collection of key-value pairs, where the keys are ordered based on 
+ order or a custom Comparator passed to the constructor.
+~/App/scripts  $ 
