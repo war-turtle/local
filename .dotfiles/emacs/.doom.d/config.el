@@ -76,6 +76,12 @@
 
 ;; Personel config
 
+;; starting the emacs server
+(server-start)
+
+;; requiring org-protocol. so that I can capture stuff from anywhere
+(require 'org-protocol)
+
 ;; Setting tab width
 ;; (setq tab-width 2)
 (setq-default tab-width 2)
