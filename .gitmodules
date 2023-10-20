@@ -4,3 +4,6 @@
 [submodule ".dotfiles/config/.config/alacritty/themes"]
 	path = .dotfiles/config/.config/alacritty/themes
 	url = git@github.com:alacritty/alacritty-theme.git
+[submodule ".dotfiles/hammerspoon/.hammerspoon/HotSwitch-HS"]
+	path = .dotfiles/hammerspoon/.hammerspoon/HotSwitch-HS
+	url = https://github.com/oniatsu/HotSwitch-HS.git

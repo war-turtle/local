@@ -193,3 +193,4 @@
 (map! "s-c" #'copy-to-clipboard)
 (map! "s-v" #'paste-from-clipboard)
 (map! "s-x" #'cut-to-clipboard)
+(map! :leader "s R" #'replace-string)

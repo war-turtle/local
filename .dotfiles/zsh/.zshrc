@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Setting language as UTF-8
+LANG=en_EN.UTF8
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -111,7 +114,7 @@ alias kdev="kubectl --context=k8s0 -n dev"
 alias kprod="kubectl --context=sin0 -n prod"
 alias ll="ls -la"
 # export PATH="/opt/homebrew/opt/openjdk@11/bin:$JAVA_HOME/bin:$PATH"
-export PATH="$JAVA_HOME/bin:$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/App/bin:$JAVA_HOME/bin:$HOME/.emacs.d/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
