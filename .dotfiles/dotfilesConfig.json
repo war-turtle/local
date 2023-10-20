@@ -18,5 +18,9 @@
   {
     "package": "hammerspoon",
     "target": "~"
+  },
+  {
+    "package": "finicky",
+    "target": "~"
   }
 ]
