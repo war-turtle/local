@@ -1,10 +1,12 @@
 module.exports = {
-  defaultBrowser: "Safari",      
+  defaultBrowser: "com.vivaldi.Vivaldi",      
   handlers: [
     {
-      match: /^https?:\/\/notion$/,
-      browser: "Safari",
-      // profile: "Profile 5"
+      match: /.*/,
+      browser: {
+        name: "com.vivaldi.Vivaldi",
+        profile: "Profile 5"
+      }
     }
   ]
 }
