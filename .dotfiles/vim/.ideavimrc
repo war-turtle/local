@@ -27,9 +27,8 @@ map Q gq
 " Find more examples here: https://jb.gg/share-ideavimrc
 
 " To enable easymotion in ideavim
-let mapleader=","
+" let mapleader=","
 Plug 'easymotion/vim-easymotion'
-map gs/ <Plug>(easymotion-jumptoanywhere)
+map g/ <Plug>(easymotion-jumptoanywhere)
 map gsj <Plug>(easymotion-j)
 map gsk <Plug>(easymotion-k)
-" does it even work

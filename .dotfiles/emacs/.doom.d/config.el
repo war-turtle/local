@@ -194,3 +194,6 @@
 (map! "s-v" #'paste-from-clipboard)
 (map! "s-x" #'cut-to-clipboard)
 (map! :leader "s R" #'replace-string)
+
+;; setting the location where org-archive-subtree command will store the tasks
+(setq org-archive-location "%s_archive::")
