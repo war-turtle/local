@@ -1,0 +1,1 @@
+{"title":"Change right option key to hyper key","rules":[{"description":"Change right option key to hyper key","manipulators":[{"type":"basic","from":{"key_code":"left_alt"},"to":[{"key_code":"left_shift","modifiers":["left_command","left_control","left_alt"]}]}]}]}

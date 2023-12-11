@@ -1,0 +1,18 @@
+#+title: Readme
+
+* Linux background jobs
+Job control is the ability to move processes or commands between the foreground and background and to suspend and resume their execution
+** Resource
+https://www.baeldung.com/linux/foreground-background-process#:~:text=Bringing%20a%20Background%20Job%20to,with%20the%20Linux%20command%20fg.&text=This%20command%20will%20bring%20job,the%20current%20(suspended)%20job.
+** Ctrl + z
+to suspend currently running program
+** bg
+to run suspend program in the background
+** &
+Add & at the end of any command to run it in background
+** jobs
+To see all the jobs running in the ground
+** fg
+to bring background job forward
+* MacOs lauchctl
+https://stuff-things.net/2015/03/18/backups-with-rsync-and-launchd/
